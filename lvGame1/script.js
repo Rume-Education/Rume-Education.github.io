@@ -8,15 +8,15 @@ let currentlySelected = null;
 words.forEach(word => {
   word.addEventListener('dragstart', dragStart);
   word.addEventListener('dragend', dragEnd);
-  word.addEventListener('click', selectWord);
-  word.addEventListener('touchstart', selectWord); // For mobile touch
+  word.addEventListener('click', selectWord); // Desktop click
+  word.addEventListener('touchend', selectWord); // Mobile touch end
 });
 
 dropZones.forEach(zone => {
   zone.addEventListener('dragover', dragOver);
   zone.addEventListener('drop', drop);
-  zone.addEventListener('click', dropOnClick);
-  zone.addEventListener('touchstart', dropOnClick); // For mobile touch
+  zone.addEventListener('click', dropOnClick); // Desktop click
+  zone.addEventListener('touchend', dropOnClick); // Mobile touch end
 });
 
 function dragStart(e) {
@@ -51,19 +51,19 @@ function drop(e) {
 }
 
 function selectWord(e) {
-  e.preventDefault(); // Prevent touch events from triggering other behavior
+  e.preventDefault(); // Prevent touch or click events from triggering unwanted behavior
 
   if (currentlySelected) {
     currentlySelected.classList.remove('selected');
   }
 
-  // Support for both mouse and touch
+  // For both mouse and touch events
   currentlySelected = e.target;
   currentlySelected.classList.add('selected');
 }
 
 function dropOnClick(e) {
-  e.preventDefault(); // Prevent touch events from triggering other behavior
+  e.preventDefault(); // Prevent touch or click events from triggering unwanted behavior
 
   if (!currentlySelected) return;
 
@@ -103,7 +103,18 @@ if (wannaCheat) {
   document.querySelectorAll('.word').forEach(div => {
     const category = div.getAttribute('data-category');
     if (category) {
-        div.innerHTML += ` (Category: ${category})`;
+      div.innerHTML += ` (Category: ${category})`;
     }
   });
 }
+// Prevent iOS default touch zoom and scroll behaviors
+document.body.addEventListener('touchstart', function(e) {
+  if (e.target.closest('.word') || e.target.closest('.drop-zone')) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// Prevent double-tap zoom on iOS
+document.body.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+}, { passive: false });

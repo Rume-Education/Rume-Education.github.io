@@ -123,6 +123,6 @@ body.dark .toggle-theme i {
 }
 
 .selected {
-  border: 2px solid blue; /* Highlight selected word */
+  border: 5px solid blue; /* Highlight selected word */
 }
 
