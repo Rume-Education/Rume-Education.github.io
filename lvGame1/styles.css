@@ -15,7 +15,6 @@ body {
   padding: 10px;           /* Optional padding around the container */
   width: 100%;             /* Ensure it takes up full width (or set a specific width) */
   min-height: 100px;       /* Minimum height to ensure visibility */
-  border: 2px solid #ccc;  /* Optional: Border to see the parent container */
   box-sizing: border-box;  /* Include padding and border in size calculations */
 }
 
@@ -43,6 +42,7 @@ body {
   justify-content: center;
   font-weight: bold;
   color: #666;
+  width:80;
 }
 
 .word.dragging, .wrong-word {
@@ -83,8 +83,8 @@ body.dark .toggle-theme i {
   justify-content: flex-start; /* Align items at the top */
   align-items: flex-start;  /* Align items to the left */
   width: 200px;             /* Fixed width for consistency */
-  max-height: 200px;        /* Set a maximum height for scrolling */
-  height: 200px;
+  max-height: 150px;        /* Set a maximum height for scrolling */
+  height: 150px;
   overflow-y: auto;         /* Enable vertical scrolling */
   padding: 10px;            /* Inner spacing */
   border: 2px dashed #ccc;  /* Dashed border to indicate drop zone */
@@ -125,4 +125,10 @@ body.dark .toggle-theme i {
 .selected {
   border: 5px solid blue; /* Highlight selected word */
 }
-
+body {
+  transform: scale(0.9); /* 90% of the original size */
+  transform-origin: top left; /* Adjusts the origin of the scaling */
+  width: 100vw; /* Ensures full viewport width */
+  height: 100vh; /* Ensures full viewport height */
+  overflow: hidden; /* Prevents overflow issues */
+}
