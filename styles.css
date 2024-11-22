@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+.container {
+  display: flex;           /* Flexbox layout for the parent container */
+  flex-wrap: wrap;         /* Allow wrapping if there's not enough space */
+  align-items: flex-start; /* Align items at the top */
+  gap: 10px;               /* Add spacing between drop zones */
+  padding: 10px;           /* Optional padding around the container */
+  width: 100%;             /* Ensure it takes up full width (or set a specific width) */
+  min-height: 100px;       /* Minimum height to ensure visibility */
+  border: 2px solid #ccc;  /* Optional: Border to see the parent container */
+  box-sizing: border-box;  /* Include padding and border in size calculations */
+}
+
+
+.categories, .words {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category, .word, .wrong-word {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: move;
+}
+
+.drop-zone, .wrong-words {
+  height: 4rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+}
+
+.word.dragging, .wrong-word {
+  opacity: 0.5;
+}
+
+.toggle-theme {
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+body.dark {
+  background-color: #181818;
+  color: white;
+}
+
+.toggle-theme i {
+  color: #aaa;
+}
+body.dark > * {
+  color: #000
+}
+
+body.dark .toggle-theme i {
+  color: #666;
+}
+
+.word.wrong {
+  color: red;
+}
+.padding-pls{
+  padding: 10px
+}
+.drop-zone {
+  display: flex;
+  flex-direction: column;   /* Stack dropped items vertically */
+  justify-content: flex-start; /* Align items at the top */
+  align-items: flex-start;  /* Align items to the left */
+  width: 200px;             /* Fixed width for consistency */
+  max-height: 200px;        /* Set a maximum height for scrolling */
+  height: 200px;
+  overflow-y: auto;         /* Enable vertical scrolling */
+  padding: 10px;            /* Inner spacing */
+  border: 2px dashed #ccc;  /* Dashed border to indicate drop zone */
+  box-sizing: border-box;   /* Include padding in size calculations */
+}
+
+.drop-zone::-webkit-scrollbar {
+  width: 6px;               /* Customize scrollbar width */
+}
+
+.drop-zone::-webkit-scrollbar-thumb {
+  background-color: #aaa;   /* Customize scrollbar color */
+  border-radius: 10px;      /* Rounded scrollbar edges */
+}
+
+.drop-zone::-webkit-scrollbar-thumb:hover {
+  background-color: #888;   /* Darker color on hover */
+}
+
+.words{
+  max-height: 500px;
+  max-width: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-sizing: border-box;   /* Include padding in size calculations */
+  display: grid;
+}
+.categories{
+  display:inline-grid;
+  max-height: 700px;
+  overflow: auto;
+  allign-items: start;
+}
+.granddady > *{
+  padding:15px
+}
+

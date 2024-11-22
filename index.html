@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!---
+Ik somebody is going to read this, so yeah, if you know your way around enough to cheat in a simple game, by all means go ahead lol, i do the same, can't be a hypcrite... Ignore the terrible code quality, if it ain't broke don't fix it xD
+
+If you're a coding nerd (there should be one in the class this is targetted at), then hmu @i_am_called_glitchy on discord, i can code too and wouldn't mind a partner :D
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expandable Drag and Drop Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body class="dark">
+  <div class="container granddady">
+    <div class="toggle-theme" onclick="toggleDarkTheme()"><i class="fas fa-moon"></i></div>
+    <div class="categories">
+      <div class="category">
+        <h3>Sakārtojuma saikļi</h3>
+        <div class="drop-zone" data-category="0"></div>
+      </div>
+      <div class="category">
+        <h3>Pakārtojuma saikļi</h3>
+        <div class="drop-zone" data-category="1"></div> 
+      </div>
+      
+    </div>
+    <div class="words">
+      <div class="word" draggable="true" data-word="Un" data-category="0">Un</div>
+      <div class="word" draggable="true" data-word="Ari" data-category="0">Arī</div>
+      <div class="word" draggable="true" data-word="un-ari" data-category="0">Un Arī</div>
+      <div class="word" draggable="true" data-word="bet" data-category="0">Bet</div>
+      <div class="word" draggable="true" data-word="tomer" data-category="0">Tomēr</div>
+      <div class="word" draggable="true" data-word="tacu" data-category="0">Tačur</div>
+      <div class="word" draggable="true" data-word="turpreti" data-category="0">Turpretī</div>
+      <div class="word" draggable="true" data-word="turpretim" data-category="0">Turpretim</div>
+      <div class="word" draggable="true" data-word="vai" data-category="0">Vai</div>
+      <div class="word" draggable="true" data-word="vainuvai" data-category="0">Vai nu vai</div>
+      <div class="word" draggable="true" data-word="gangan" data-category="0">Gan - Gan</div>
+      <div class="word" draggable="true" data-word="drizdriz" data-category="0">Drīz - Drīz</div>
+      <div class="word" draggable="true" data-word="nevisbet" data-category="0">Nevis - Bet</div>
+<div class="word" draggable="true" data-word="nevienbet" data-category="0">Ne vien - Bet arī</div>
+      <div class="word" draggable="true" data-word="tiklabi" data-category="0">Tiklab - Kā arī u.c</div>
+      <div class="word" draggable="true" data-word="ka" data-category="1">Ka</div>
+      <div class="word" draggable="true" data-word="lai" data-category="1">Lai</div>
+      <div class="word" draggable="true" data-word="vai" data-category="1">Vai</div>
+      <div class="word" draggable="true" data-word="ja" data-category="1">Ja</div>
+      <div class="word" draggable="true" data-word="2" data-category="1">Līdz</div>
+      <div class="word" draggable="true" data-word="3" data-category="1">Līdzko</div>
+      <div class="word" draggable="true" data-word="4" data-category="1">Tiklīdz</div>
+      <div class="word" draggable="true" data-word="5" data-category="1">Lai gan</div>
+      <div class="word" draggable="true" data-word="6" data-category="1">Lai arī</div>
+      <div class="word" draggable="true" data-word="11" data-category="1">Kaut gan</div>
+      <div class="word" draggable="true" data-word="22" data-category="1">Kaut arī</div>
+      <div class="word" draggable="true" data-word="33" data-category="1">Tapēc ka</div>
+      <div class="word" draggable="true" data-word="44" data-category="1">Tā kā</div>
+      <div class="word" draggable="true" data-word="55" data-category="1">Tādēļ ka</div>
+      <div class="word" draggable="true" data-word="66" data-category="1">Jo u.c</div>
+      <div class="word" draggable="true" data-word="111" data-category="1">Kas</div>
+      <div class="word" draggable="true" data-word="222" data-category="1">Kurš</div>
+      <div class="word" draggable="true" data-word="333" data-category="1">Kura</div>
+      <div class="word" draggable="true" data-word="444" data-category="1">Kāds</div>
+      <div class="word" draggable="true" data-word="555" data-category="1">Kāda</div>
+      <div class="word" draggable="true" data-word="666" data-category="1">Kad</div>  <!--- 666 super scary lol--->
+      <div class="word" draggable="true" data-word="12" data-category="1">Kur</div>
+      <div class="word" draggable="true" data-word="21" data-category="1">Cik</div>
+      <div class="word" draggable="true" data-word="34" data-category="1">Kā</div>
+      <div class="word" draggable="true" data-word="64" data-category="1">Kapēc</div>
+      <div class="word" draggable="true" data-word="32" data-category="1">Kādēļ u.c</div>
+      <div class="word" draggable="true" data-word="3x" data-category="1">Uz kurieni</div>
+      <div class="word" draggable="true" data-word="wa" data-category="1">No kurienes</div>
+      <div class="word" draggable="true" data-word="wx" data-category="1">Aiz kura</div>
+      <div class="word" draggable="true" data-word="IInW" data-category="1">Lidz kurieni u.c</div>
+      
+    </div>
+    
+    <div class="wrong-words container"><span>Nepareizie vārdi</span></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
