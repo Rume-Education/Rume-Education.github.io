@@ -3,16 +3,18 @@ const dropZones = document.querySelectorAll('.drop-zone');
 const wrongWords = document.querySelector('.wrong-words');
 const wannaCheat = false;
 
-let currentlyDragged = null;
+let currentlySelected = null;
 
 words.forEach(word => {
   word.addEventListener('dragstart', dragStart);
   word.addEventListener('dragend', dragEnd);
+  word.addEventListener('click', selectWord);
 });
 
 dropZones.forEach(zone => {
   zone.addEventListener('dragover', dragOver);
   zone.addEventListener('drop', drop);
+  zone.addEventListener('click', dropOnClick);
 });
 
 function dragStart(e) {
@@ -26,6 +28,7 @@ function dragEnd(e) {
   e.target.classList.remove('dragging');
   currentlyDragged = null;
 }
+
 function dragOver(e) {
   e.preventDefault();
 }
@@ -36,16 +39,38 @@ function drop(e) {
   const word = currentlyDragged.dataset.word;
   const wordCategory = currentlyDragged.dataset.category;
 
-  // Check if the target is a valid container (and not a wrong drop zone)
   if (e.target.classList.contains('drop-zone') || e.target === wrongWords) {
     if (category === wordCategory) {
-      // Append the dragged element to the correct category
       e.target.appendChild(currentlyDragged);
     } else {
-      // Add the 'wrong' class and append to wrongWords container
       currentlyDragged.classList.add('wrong');
       wrongWords.appendChild(currentlyDragged);
     }
+  }
+}
+
+function selectWord(e) {
+  if (currentlySelected) {
+    currentlySelected.classList.remove('selected');
+  }
+  currentlySelected = e.target;
+  currentlySelected.classList.add('selected');
+}
+
+function dropOnClick(e) {
+  if (!currentlySelected) return;
+  const category = e.target.dataset.category;
+  const wordCategory = currentlySelected.dataset.category;
+
+  if (e.target.classList.contains('drop-zone') || e.target === wrongWords) {
+    if (category === wordCategory) {
+      e.target.appendChild(currentlySelected);
+    } else {
+      currentlySelected.classList.add('wrong');
+      wrongWords.appendChild(currentlySelected);
+    }
+    currentlySelected.classList.remove('selected');
+    currentlySelected = null;
   }
 }
 
@@ -67,10 +92,10 @@ divs.sort(() => Math.random() - 0.5);
 divs.forEach(div => container.appendChild(div));
 
 if (wannaCheat){
-document.querySelectorAll('.word').forEach(div => {
+  document.querySelectorAll('.word').forEach(div => {
     const category = div.getAttribute('data-category');
     if (category) {
         div.innerHTML += ` (Category: ${category})`;
     }
-});
+  });
 }
