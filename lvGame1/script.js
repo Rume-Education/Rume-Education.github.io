@@ -9,12 +9,14 @@ words.forEach(word => {
   word.addEventListener('dragstart', dragStart);
   word.addEventListener('dragend', dragEnd);
   word.addEventListener('click', selectWord);
+  word.addEventListener('touchstart', selectWord); // For mobile touch
 });
 
 dropZones.forEach(zone => {
   zone.addEventListener('dragover', dragOver);
   zone.addEventListener('drop', drop);
   zone.addEventListener('click', dropOnClick);
+  zone.addEventListener('touchstart', dropOnClick); // For mobile touch
 });
 
 function dragStart(e) {
@@ -36,7 +38,6 @@ function dragOver(e) {
 function drop(e) {
   e.preventDefault();
   const category = e.target.dataset.category;
-  const word = currentlyDragged.dataset.word;
   const wordCategory = currentlyDragged.dataset.category;
 
   if (e.target.classList.contains('drop-zone') || e.target === wrongWords) {
@@ -50,15 +51,22 @@ function drop(e) {
 }
 
 function selectWord(e) {
+  e.preventDefault(); // Prevent touch events from triggering other behavior
+
   if (currentlySelected) {
     currentlySelected.classList.remove('selected');
   }
+
+  // Support for both mouse and touch
   currentlySelected = e.target;
   currentlySelected.classList.add('selected');
 }
 
 function dropOnClick(e) {
+  e.preventDefault(); // Prevent touch events from triggering other behavior
+
   if (!currentlySelected) return;
+
   const category = e.target.dataset.category;
   const wordCategory = currentlySelected.dataset.category;
 
@@ -91,7 +99,7 @@ const divs = Array.from(container.children);
 divs.sort(() => Math.random() - 0.5);
 divs.forEach(div => container.appendChild(div));
 
-if (wannaCheat){
+if (wannaCheat) {
   document.querySelectorAll('.word').forEach(div => {
     const category = div.getAttribute('data-category');
     if (category) {

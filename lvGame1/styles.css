@@ -122,3 +122,7 @@ body.dark .toggle-theme i {
   padding:15px
 }
 
+.selected {
+  border: 2px solid blue; /* Highlight selected word */
+}
+
