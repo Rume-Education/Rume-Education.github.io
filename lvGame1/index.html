@@ -1,83 +1,250 @@
 <!DOCTYPE html>
-<!---
-Ik somebody is going to read this, so yeah, if you know your way around enough to cheat in a simple game, by all means go ahead lol, i do the same, can't be a hypcrite... Ignore the terrible code quality, if it ain't broke don't fix it xD
-
-If you're a coding nerd (there should be one in the class this is targetted at), then hmu @i_am_called_glitchy on discord, i can code too and wouldn't mind a partner :D
--->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expandable Drag and Drop Game</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Drag & Drop Puzzle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.2" />
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2em;
+    }
+    .word {
+      padding: 0.6em;
+      background: #eee;
+      border: 1px solid #ccc;
+      cursor: grab;
+      margin: 0em;
+    }
+
+    .correct {
+      background-color: #c8e6c9;
+    }
+
+    .incorrect {
+      background-color: #ffcdd2;
+    }
+
+    .ghost {
+      opacity: 0.4;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7em;
+      margin-top: 2em;
+      justify-content: center;
+    }
+
+    .box {
+      width: 300px;
+      box-sizing: border-box;
+      border: 2px dashed #333;
+      padding: 1em;
+      margin: 2em;
+      background: #fafafa;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .box h3 {
+      margin-top: 0;
+    }
+
+    .dropzone {
+      min-height: 100px;
+      margin-top: 1em;
+    }
+
+    #boxes {
+      display: flex;
+      gap: 2em;
+    }
+
+    @media (max-width: 600px) {
+      #boxes {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 1em 0;
+      }
+
+      .box {
+        width: 100%;
+        margin-bottom: 1em;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
-<body class="dark">
-  <div class="container granddady">
-    <div class="toggle-theme" onclick="toggleDarkTheme()"><i class="fas fa-moon"></i></div>
-    <div class="categories">
-      <div class="category">
-        <h3>Sakārtojuma saikļi</h3>
-        <div class="drop-zone" data-category="0"></div>
-      </div>
-      <div class="category">
-        <h3>Pakārtojuma saikļi</h3>
-        <div class="drop-zone" data-category="1"></div> 
-      </div>
-      
+<body>
+
+  <div id="word-top" class="container"></div>
+
+  <div id="boxes">
+    <div class="box" data-category="Sakārtojuma saikļi">
+      <h3>Sakārtojuma saikļi</h3>
+      <div class="dropzone"></div>
     </div>
-    <div class="words">
-      <div class="word" draggable="true" data-word="Un" data-category="0">Un</div>
-      <div class="word" draggable="true" data-word="Ari" data-category="0">Arī</div>
-      <div class="word" draggable="true" data-word="un-ari" data-category="0">Un arī</div>
-      <div class="word" draggable="true" data-word="bet" data-category="0">Bet</div>
-      <div class="word" draggable="true" data-word="tomer" data-category="0">Tomēr</div>
-      <div class="word" draggable="true" data-word="tacu" data-category="0">Taču</div>
-      <div class="word" draggable="true" data-word="turpreti" data-category="0">Turpretī</div>
-      <div class="word" draggable="true" data-word="turpretim" data-category="0">Turpretim</div>
-      <div class="word" draggable="true" data-word="vai" data-category="0">Vai</div>
-      <div class="word" draggable="true" data-word="vainuvai" data-category="0">Vai nu vai</div>
-      <div class="word" draggable="true" data-word="gangan" data-category="0">Gan - Gan</div>
-      <div class="word" draggable="true" data-word="drizdriz" data-category="0">Drīz - Drīz</div>
-      <div class="word" draggable="true" data-word="nevisbet" data-category="0">Nevis - Bet</div>
-<div class="word" draggable="true" data-word="nevienbet" data-category="0">Ne vien - Bet arī</div>
-      <div class="word" draggable="true" data-word="tiklabi" data-category="0">Tiklab - Kā arī u.c</div>
-      <div class="word" draggable="true" data-word="ka" data-category="1">Ka</div>
-      <div class="word" draggable="true" data-word="lai" data-category="1">Lai</div>
-      <div class="word" draggable="true" data-word="vai" data-category="1">Vai</div>
-      <div class="word" draggable="true" data-word="ja" data-category="1">Ja</div>
-      <div class="word" draggable="true" data-word="2" data-category="1">Līdz</div>
-      <div class="word" draggable="true" data-word="3" data-category="1">Līdzko</div>
-      <div class="word" draggable="true" data-word="4" data-category="1">Tiklīdz</div>
-      <div class="word" draggable="true" data-word="5" data-category="1">Lai gan</div>
-      <div class="word" draggable="true" data-word="6" data-category="1">Lai arī</div>
-      <div class="word" draggable="true" data-word="11" data-category="1">Kaut gan</div>
-      <div class="word" draggable="true" data-word="22" data-category="1">Kaut arī</div>
-      <div class="word" draggable="true" data-word="33" data-category="1">Tapēc ka</div>
-      <div class="word" draggable="true" data-word="44" data-category="1">Tā kā</div>
-      <div class="word" draggable="true" data-word="55" data-category="1">Tādēļ ka</div>
-      <div class="word" draggable="true" data-word="66" data-category="1">Jo u.c</div>
-      <div class="word" draggable="true" data-word="111" data-category="1">Kas</div>
-      <div class="word" draggable="true" data-word="222" data-category="1">Kurš</div>
-      <div class="word" draggable="true" data-word="333" data-category="1">Kura</div>
-      <div class="word" draggable="true" data-word="444" data-category="1">Kāds</div>
-      <div class="word" draggable="true" data-word="555" data-category="1">Kāda</div>
-      <div class="word" draggable="true" data-word="666" data-category="1">Kad</div>  <!--- 666 super scary lol--->
-      <div class="word" draggable="true" data-word="12" data-category="1">Kur</div>
-      <div class="word" draggable="true" data-word="21" data-category="1">Cik</div>
-      <div class="word" draggable="true" data-word="34" data-category="1">Kā</div>
-      <div class="word" draggable="true" data-word="64" data-category="1">Kapēc</div>
-      <div class="word" draggable="true" data-word="32" data-category="1">Kādēļ u.c</div>
-      <div class="word" draggable="true" data-word="3x" data-category="1">Uz kurieni</div>
-      <div class="word" draggable="true" data-word="wa" data-category="1">No kurienes</div>
-      <div class="word" draggable="true" data-word="wx" data-category="1">Aiz kura</div>
-      <div class="word" draggable="true" data-word="IInW" data-category="1">Lidz kurienie u.c</div>
-      
+    <div class="box" data-category="Pakārtojuma saikļi">
+      <h3>Pakārtojuma saikļi</h3>
+      <div class="dropzone"></div>
     </div>
-    
-    <div class="wrong-words container"><span>Nepareizie vārdi</span></div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="word-bottom" class="container"></div>
+
+<script>
+  const devCheat = false;
+
+  const wordMap = {
+    "un": "Sakārtojuma saikļi",
+    "arī": "Sakārtojuma saikļi",
+    "bet": "Sakārtojuma saikļi",
+    "tomēr": "Sakārtojuma saikļi",
+    "taču": "Sakārtojuma saikļi",
+    "turpretī": "Sakārtojuma saikļi",
+    "turpretim": "Sakārtojuma saikļi",
+    "nevis": "Sakārtojuma saikļi",
+    "vai": "Sakārtojuma saikļi",
+    "jeb": "Sakārtojuma saikļi",
+    "gan - gan": "Sakārtojuma saikļi",
+    "ne - ne": "Sakārtojuma saikļi",
+    "nedz - nedz": "Sakārtojuma saikļi",
+    "drīz - drīz": "Sakārtojuma saikļi",
+    "ir - ir": "Sakārtojuma saikļi",
+    "te - te": "Sakārtojuma saikļi",
+    "nevis - bet": "Sakārtojuma saikļi",
+    "ne vien - bet arī": "Sakārtojuma saikļi",
+    "ne tikai - bet arī": "Sakārtojuma saikļi",
+    "ne tikvien - bet arī": "Sakārtojuma saikļi",
+    "tiklab - kā arī": "Sakārtojuma saikļi",
+    "kā - tā": "Sakārtojuma saikļi",
+    "ka": "Pakārtojuma saikļi",
+    "lai": "Pakārtojuma saikļi",
+    "ja": "Pakārtojuma saikļi",
+    "jo": "Pakārtojuma saikļi",
+    "tāpēc ka": "Pakārtojuma saikļi",
+    "tādēļ ka": "Pakārtojuma saikļi",
+    "tā kā": "Pakārtojuma saikļi",
+    "tā ka": "Pakārtojuma saikļi",
+    "lai gan": "Pakārtojuma saikļi",
+    "lai arī": "Pakārtojuma saikļi",
+    "kaut gan": "Pakārtojuma saikļi",
+    "kaut arī": "Pakārtojuma saikļi",
+    "kamēr": "Pakārtojuma saikļi",
+    "līdz": "Pakārtojuma saikļi",
+    "kopš": "Pakārtojuma saikļi",
+    "iekams": "Pakārtojuma saikļi",
+    "pirms": "Pakārtojuma saikļi"
+  };
+
+  // Containers
+  const wordTop = document.getElementById('word-top');
+  const wordBottom = document.getElementById('word-bottom');
+  const boxes = document.getElementById('boxes');
+
+  // Shuffle helper (Fisher-Yates)
+  function shuffle(array) {
+    for (let i = array.length -1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // Create shuffled word list
+  const wordEntries = shuffle(Object.entries(wordMap));
+
+  function createWordDiv(word, category, index) {
+    const div = document.createElement('div');
+    div.textContent = word.toUpperCase() + (devCheat ? ` (${category})` : '');
+    div.className = 'word';
+    div.dataset.answer = category;
+    div.id = `word-${index}`;
+    return div;
+  }
+
+  // Clear containers just in case (if you reload this dynamically)
+  wordTop.innerHTML = '';
+  wordBottom.innerHTML = '';
+
+  // Split word entries into halves
+  const midpoint = Math.ceil(wordEntries.length / 2);
+  const topHalf = wordEntries.slice(0, midpoint);
+  const bottomHalf = wordEntries.slice(midpoint);
+
+  // Append top half
+  topHalf.forEach(([word, category], i) => {
+    wordTop.appendChild(createWordDiv(word, category, i));
+  });
+
+  // Append bottom half
+  bottomHalf.forEach(([word, category], i) => {
+    wordBottom.appendChild(createWordDiv(word, category, i + midpoint));
+  });
+
+  // Initialize Sortable on top and bottom word containers (source of clones)
+  [wordTop, wordBottom].forEach(container => {
+    Sortable.create(container, {
+      group: {
+        name: 'words',
+        pull: 'clone',
+        put: false
+      },
+      sort: false,
+      animation: 150,
+      ghostClass: 'ghost',
+      // Disable dragging the drop boxes themselves — only words clone draggable
+      filter: '.box',
+      preventOnFilter: false,
+    });
+  });
+
+  // Initialize Sortable on dropzones inside boxes
+  document.querySelectorAll('.box').forEach(box => {
+    const dropzone = box.querySelector('.dropzone');
+    const category = box.dataset.category;
+
+    Sortable.create(dropzone, {
+      group: 'words',
+      animation: 150,
+      ghostClass: 'ghost',
+      scroll: true,
+      scrollSensitivity: 60,
+      scrollSpeed: 10,
+      onAdd: evt => {
+        const item = evt.item;
+        const answer = item.dataset.answer;
+
+        item.classList.remove('correct', 'incorrect');
+        item.classList.add(answer === category ? 'correct' : 'incorrect');
+      }
+    });
+  });
+
+  // Move the #boxes container between the two halves on mobile only
+  function repositionDropBoxesForMobile() {
+    if (window.innerWidth <= 600) {
+      if (boxes.parentElement !== wordTop.parentElement) {
+        // Insert #boxes between wordTop and wordBottom in DOM
+        wordTop.after(boxes);
+      }
+    } else {
+      // On desktop, make sure #boxes is after wordBottom (to keep horizontal layout)
+      if (boxes.parentElement !== wordBottom.parentElement) {
+        wordBottom.after(boxes);
+      }
+    }
+  }
+
+  repositionDropBoxesForMobile();
+  window.addEventListener('resize', repositionDropBoxesForMobile);
+
+</script>
+
 </body>
 </html>
